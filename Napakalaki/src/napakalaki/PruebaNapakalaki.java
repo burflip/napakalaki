@@ -8,6 +8,7 @@ package napakalaki;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.Scanner;
 
 /**
  *
@@ -17,12 +18,10 @@ public class PruebaNapakalaki {
     
     public static ArrayList<Monster> getCombatLevelHigherThan(ArrayList<Monster> monstruos, int combatLevel)
     {
-        Iterator<Monster> iterator = monstruos.iterator();
         ArrayList<Monster> monstruosConNivelSuperior = new ArrayList();
-        while (iterator.hasNext()) {
-            Monster temp_monstruo = iterator.next();
-            if(temp_monstruo.getCombatLevel() > combatLevel){
-                monstruosConNivelSuperior.add(temp_monstruo);
+        for (Monster monstruo: monstruos) {
+            if(monstruo.getCombatLevel() > combatLevel){
+                monstruosConNivelSuperior.add(monstruo);
             }
         }
         
@@ -31,13 +30,11 @@ public class PruebaNapakalaki {
     
     public static ArrayList<Monster> getBadConsequenceOnlyLostLevels(ArrayList<Monster> monstruos)
     {
-        Iterator<Monster> iterator = monstruos.iterator();
         ArrayList<Monster> monstruosPerdidaNiveles = new ArrayList();
-        while (iterator.hasNext()) {
-            Monster temp_monstruo = iterator.next();
-            BadConsequence currentMonsterBC = temp_monstruo.getBadConsequence();
+        for (Monster monstruo: monstruos) {
+            BadConsequence currentMonsterBC = monstruo.getBadConsequence();
             if(currentMonsterBC.getLevels() > 0 && currentMonsterBC.getSpecificHiddenTreasures().isEmpty() && currentMonsterBC.getSpecificVisibleTreasures().isEmpty() && currentMonsterBC.getnHiddenTreasures() == 0 && currentMonsterBC.getnVisibleTreasures() == 0){
-                monstruosPerdidaNiveles.add(temp_monstruo);
+                monstruosPerdidaNiveles.add(monstruo);
             }
         }
         
@@ -46,12 +43,10 @@ public class PruebaNapakalaki {
     
     public static ArrayList<Monster> prizeLevelsHigherThan(ArrayList<Monster> monstruos, int prizeLevel)
     {
-        Iterator<Monster> iterator = monstruos.iterator();
         ArrayList<Monster> monstruosConGananciaSuperior = new ArrayList();
-        while (iterator.hasNext()) {
-            Monster temp_monstruo = iterator.next();
-            if(temp_monstruo.getPrize().getLevel() > prizeLevel){
-                monstruosConGananciaSuperior.add(temp_monstruo);
+        for (Monster monstruo: monstruos) {
+            if(monstruo.getPrize().getLevel() > prizeLevel){
+                monstruosConGananciaSuperior.add(monstruo);
             }
         }
         
@@ -60,13 +55,11 @@ public class PruebaNapakalaki {
     
     public static ArrayList<Monster> lostSpecificTreasures(ArrayList<Monster> monstruos)
     {
-        Iterator<Monster> iterator = monstruos.iterator();
         ArrayList<Monster> monstruosPerdidaTesoros = new ArrayList();
-        while (iterator.hasNext()) {
-            Monster temp_monstruo = iterator.next();
-            BadConsequence currentMonsterBC = temp_monstruo.getBadConsequence();
+        for (Monster monstruo: monstruos) {
+            BadConsequence currentMonsterBC = monstruo.getBadConsequence();
             if(currentMonsterBC.getSpecificVisibleTreasures().size() > 0 || currentMonsterBC.getSpecificHiddenTreasures().size() > 0){
-                monstruosPerdidaTesoros.add(temp_monstruo);
+                monstruosPerdidaTesoros.add(monstruo);
             }
         }
         
@@ -176,10 +169,45 @@ public class PruebaNapakalaki {
         prize = new Prize(1, 1);
         monstruos.add(new Monster("Bicéfalo", 20, badConsequence, prize));
         
-        System.out.println(getCombatLevelHigherThan(monstruos,10));
-        System.out.println(getBadConsequenceOnlyLostLevels(monstruos));
-        System.out.println(prizeLevelsHigherThan(monstruos,1));
-        System.out.println(lostSpecificTreasures(monstruos));
+        
+        //MENU
+        
+        int opcion = 1;
+        while(opcion != 5) {
+            System.out.println("¿Qué monstruos desea mostrar? \n "
+                + "1.- Nivel de combate superior a un número. \n "
+                + "2.- Mal rollo que implique solo perdidas de nivel. \n "
+                + "3.- Su buen rollo indique una ganancia de niveles superior a un número. \n "
+                + "4.- Su mal rollo suponga la pérdida de un determinado tipo de tesoros ya sea visibles y/o ocultos. \n "
+                + "5.- Salir del menu. \n");
+        
+            Scanner in = new Scanner(System.in);
+            String entrada = in.nextLine();
+
+            opcion = Integer.parseInt(entrada);
+            switch (opcion) {
+            case 1:
+                
+                System.out.println("¿A qué nivel tiene que ser superior el monstruo?");
+                entrada = in.nextLine();
+                System.out.println(getCombatLevelHigherThan(monstruos,Integer.parseInt(entrada)));
+                break;
+            case 2: 
+                System.out.println(getBadConsequenceOnlyLostLevels(monstruos));
+                break;
+            case 3:
+                System.out.println("¿Con cuántos niveles debe premiar el buen rollo?");
+                entrada = in.nextLine();
+                System.out.println(prizeLevelsHigherThan(monstruos,Integer.parseInt(entrada)));
+                break;
+            case 4:
+                System.out.println(lostSpecificTreasures(monstruos));
+                break;
+            case 5:
+                return ;
+            }
+        }
+        
     }
     
 }

@@ -1,4 +1,4 @@
-#encoding: utf-8
+# encoding: utf-8
 require './monster.rb'
 require './bad_consequence.rb'
 require './prize.rb'
@@ -145,7 +145,40 @@ badConsequence = BadConsequence.newLevelSpecificTreasures("Te faltan manos para 
 prize = Prize.new(1, 1)
 monsters << Monster.new("Bicéfalo", 20, badConsequence, prize)
 
-puts getCombatLevelHigherThan(monsters, 10)
-puts getBadConsequenceOnlyLostLevels(monsters)
-puts prizeLevelsHigherThan(monsters, 1)
-puts lostSpecificTreasures(monsters)
+opcion = 1
+while(opcion)
+  puts "¿Qué monstruos desea mostrar? \n 
+1.- Nivel de combate superior a un número. \n
+2.- Mal rollo que implique solo perdidas de nivel. \n
+3.- Su buen rollo indique una ganancia de niveles superior a un número. \n
+4.- Su mal rollo suponga la pérdida de un determinado tipo de tesoros ya sea visibles y/o ocultos. \n
+5.- Salir del menu. \n"
+  
+ entrada = gets.chomp
+ opcion = entrada
+ case opcion
+ when "1"
+   puts "¿A qué nivel tiene que ser superior el monstruo?"
+   entrada = gets.chomp
+   puts getCombatLevelHigherThan(monsters, entrada.to_i)
+   
+ when "2"
+   puts getBadConsequenceOnlyLostLevels(monsters)
+   
+ when "3"
+   puts "¿Con cuántos niveles debe premiar el buen rollo?"
+   entrada = gets.chomp
+   puts prizeLevelsHigherThan(monsters, entrada.to_i)
+   
+ when "4"
+   puts lostSpecificTreasures(monsters)
+   
+ when "5"
+   puts "Adiós!"
+   exit
+   
+ else
+   puts "Por favor, elige un número del 1 al 5"
+   
+ end
+end
