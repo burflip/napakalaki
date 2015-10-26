@@ -179,7 +179,7 @@ public class PruebaNapakalaki {
                 + "2.- Mal rollo que implique solo perdidas de nivel. \n "
                 + "3.- Su buen rollo indique una ganancia de niveles superior a un número. \n "
                 + "4.- Su mal rollo suponga la pérdida de un determinado tipo de tesoros ya sea visibles y/o ocultos. \n "
-                + "5.- Salir del menu. \n");
+                + "5.- Salir del programa. \n");
         
             Scanner in = new Scanner(System.in);
             String entrada = in.nextLine();
