@@ -5,6 +5,8 @@
  */
 package NapakalakiGame;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 /**
  *
  * @author Valentin
@@ -21,6 +23,6 @@ public class Dice {
     }
     
     public int nextNumber(){
-        return 0;
+        return ThreadLocalRandom.current().nextInt(1,7);
     }
 }

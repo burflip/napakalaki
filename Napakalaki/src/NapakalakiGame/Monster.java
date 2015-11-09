@@ -45,10 +45,10 @@ public class Monster {
     }    
     
     public int getLevelsGained() {
-        return 0;
+        return this.prize.getLevel();
     }
     
     public int getTreasuresGained() {
-        return 0;
+        return this.prize.getTreasures();
     }
 }

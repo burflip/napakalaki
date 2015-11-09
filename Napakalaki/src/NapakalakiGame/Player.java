@@ -43,7 +43,7 @@ public class Player {
     
     private void incrementLevels(int l){
         int final_level = this.level + l;
-        if(final_level> 10){
+        if(final_level > 10){
             this.level = 10;
         } else {
             this.level = final_level;
@@ -51,11 +51,16 @@ public class Player {
     }
     
     private void decrementLevels(int l){
-        
+        int final_level = this.level - l;
+        if(final_level < 1){
+            this.level = 1;
+        } else {
+            this.level = final_level;
+        }
     }
     
     private void setPendingBadConsequence(BadConsequence bad) {
-        
+        this.pendingBadConsequence = bad;
     }
     
     private void applyPrize(Monster m){
@@ -71,11 +76,19 @@ public class Player {
     }
     
     private int howManyVisibleTreasures(TreasureKind tKind){
-        return 0;
+        int treasures = 0;
+        for(Treasure tesoro:this.visibleTreasures){
+            if(tesoro.getType() == tKind){
+                treasures++;
+            }
+        }
+        return treasures;
     }
     
     private void dieIfNoTreasures(){
-        
+        if(this.hiddenTreasures.isEmpty() && this.visibleTreasures.isEmpty()){
+            this.dead = true;
+        }
     }
 
     public int getLevels() {
@@ -122,7 +135,7 @@ public class Player {
         
     }
     public boolean validState(){
-        return true;
+        return (this.pendingBadConsequence.isEmpty() && this.hiddenTreasures.size() <= 4);
     }
     
     public void initTreasures(){
@@ -134,7 +147,7 @@ public class Player {
     }
     
     public void setEnemy(Player enemy){
-        
+        this.enemy = enemy;
     }
     
     private Treasure giveMeATreasure(){
@@ -146,11 +159,11 @@ public class Player {
     }
     
     private boolean canYouGiveMeATreasure(){
-        return true;
+        return !(this.hiddenTreasures.isEmpty());
     }
     
     private void haveStolen(){
-        
+        this.canISteal = true;
     }
     
     private void discardAllTreasures(){

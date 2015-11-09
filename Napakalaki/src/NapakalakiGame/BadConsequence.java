@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package NapakalakiGame;
 
 import java.util.ArrayList;
@@ -12,15 +7,16 @@ import java.util.ArrayList;
  * @author valentin
  */
 public class BadConsequence {
+    public static final int MAXTREASURES = 10;
     
     private String text;
-    private int levels, nVisibleTreasures, nHiddenTreasures;
-    private boolean death;
+    private int levels=0, nVisibleTreasures=0, nHiddenTreasures=0;
+    private boolean death=false;
     private ArrayList<TreasureKind> specificHiddenTreasures = new ArrayList();
     private ArrayList<TreasureKind> specificVisibleTreasures = new ArrayList();
     
     public boolean isEmpty(){
-        return true;
+        return (this.nHiddenTreasures == 0 && this.nVisibleTreasures == 0 && this.specificHiddenTreasures.isEmpty() && this.specificVisibleTreasures.isEmpty());
     }
     
     public BadConsequence(String text, int levels, int nVisible, int nHidden) {
