@@ -1,8 +1,13 @@
 #encoding: utf-8
-require './treasure_kind.rb'
+require_relative 'treasure_kind.rb'
+
 module NapakalakiGame
 
   class BadConsequence
+    
+    attr_reader :text, :levels, :death, :nVisibleTreasures, :nHiddenTreasures, :specificVisibleTreasures, :specificHiddenTreasures
+    
+    private_class_method :new
     
     @@MAXTREASURES = 10
     
@@ -16,9 +21,9 @@ module NapakalakiGame
       @specificHiddenTreasures = someSpecificHiddenTreasures
     end
   
-    private_class_method :new
-  
-    attr_reader :text, :levels, :death, :nVisibleTreasures, :nHiddenTreasures, :specificVisibleTreasures, :specificHiddenTreasures
+    def isEmpty()
+      (@nVisibleTreasures == 0 and @nHiddenTreasures == 0 and @specificVisibleTreasures.empty? and @specificHiddenTreasures.empty?)
+    end
       
     def substractVisibleTreasure(t)
       

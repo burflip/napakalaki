@@ -1,8 +1,8 @@
 #encoding: utf-8
-require './monster.rb'
-require './bad_consequence.rb'
-require './prize.rb'
-require './treasure_kind.rb'
+require_relative 'monster.rb'
+require_relative 'bad_consequence.rb'
+require_relative 'prize.rb'
+require_relative 'treasure_kind.rb'
 
 module NapakalakiGame
 
@@ -66,25 +66,25 @@ module NapakalakiGame
       puts "¿A qué nivel tiene que ser superior el monstruo?"
       entrada = gets.chomp
       puts getCombatLevelHigherThan(monsters, entrada.to_i)
-   
+      
     when "2"
       puts getBadConsequenceOnlyLostLevels(monsters)
-   
+      
     when "3"
       puts "¿Con cuántos niveles debe premiar el buen rollo?"
       entrada = gets.chomp
       puts prizeLevelsHigherThan(monsters, entrada.to_i)
-   
+      
     when "4"
       puts lostSpecificTreasures(monsters)
-   
+      
     when "5"
       puts "Adiós!"
       exit
-   
+      
     else
       puts "Por favor, elige un número del 1 al 6"
-   
+      
     end
   end
 end

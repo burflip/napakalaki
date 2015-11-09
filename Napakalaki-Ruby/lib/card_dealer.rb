@@ -1,8 +1,10 @@
 #encoding: utf-8
-include Singleton
+require 'singleton'
 
 module NapakalakiGame
   class CardDealer
+    
+    include Singleton
     
     def initialize
       @unusedTreasures = Array.new
@@ -10,8 +12,39 @@ module NapakalakiGame
       @unusedMonsters = Array.new
       @usedMonsters = Array.new
     end
+    
     def initTreasureCardDeck
-
+      @unusedTreasures << Treasure.new("¡Sí mi amo!", 4, [TreasureKind::HELMET])
+      @unusedTreasures << Treasure.new("Botas de investigación", 3, [TreasureKind::SHOES])
+      @unusedTreasures << Treasure.new("Capucha de Cthulhu", 3, [TreasureKind::HELMET])
+      @unusedTreasures << Treasure.new("A prueba de balas", 2, [TreasureKind::ARMOR])
+      @unusedTreasures << Treasure.new("Botas de lluvia ácida", 1, [TreasureKind::BOTHHANDS])
+      @unusedTreasures << Treasure.new("Casco minero", 2, [TreasureKind::HELMET])
+      @unusedTreasures << Treasure.new("Ametralladora Thompson", 4, [TreasureKind::BOTHHANDS])
+      @unusedTreasures << Treasure.new("Camiseta de la UGR", 1, [TreasureKind::ARMOR])
+      @unusedTreasures << Treasure.new("Clavo de raíl ferroviario", 3, [TreasureKind::ONEHAND])
+      @unusedTreasures << Treasure.new("Cuchillo de sushi arcano", 2, [TreasureKind::ONEHAND])
+      @unusedTreasures << Treasure.new("Fez alópodo", 3, [TreasureKind::HELMET])
+      @unusedTreasures << Treasure.new("Hacha prehistórica", 2, [TreasureKind::ONEHAND])
+      @unusedTreasures << Treasure.new("El aparato del Pr. Tesla", 4, [TreasureKind::ARMOR])
+      @unusedTreasures << Treasure.new("Gaita", 4, [TreasureKind::BOTHHANDS])
+      @unusedTreasures << Treasure.new("Insecticida", 2, [TreasureKind::ONEHAND])
+      @unusedTreasures << Treasure.new("Escopeta de 3 cañones", 4, [TreasureKind::BOTHHANDS])
+      @unusedTreasures << Treasure.new("Garabato místico", 2, [TreasureKind::ONEHAND])
+      @unusedTreasures << Treasure.new("La rebeca metálica", 2, [TreasureKind::ARMOR])
+      @unusedTreasures << Treasure.new("Lanzallamas", 4, [TreasureKind::BOTHHANDS])
+      @unusedTreasures << Treasure.new("Necrocomicón", 1, [TreasureKind::ONEHAND])
+      @unusedTreasures << Treasure.new("Necronomicón", 5, [TreasureKind::BOTHHANDS])
+      @unusedTreasures << Treasure.new("Linterna a 2 manos", 3, [TreasureKind::BOTHHANDS])
+      @unusedTreasures << Treasure.new("Necrognomicón", 2, [TreasureKind::ONEHAND])
+      @unusedTreasures << Treasure.new("Necrotelecom", 2, [TreasureKind::HELMET])
+      @unusedTreasures << Treasure.new("Mazo de los antiguos", 3, [TreasureKind::ONEHAND])
+      @unusedTreasures << Treasure.new("Necroplayboycón", 3, [TreasureKind::ONEHAND])
+      @unusedTreasures << Treasure.new("Porra prenatural", 2, [TreasureKind::ONEHAND])
+      @unusedTreasures << Treasure.new("Shogulador", 1, [TreasureKind::BOTHHANDS])
+      @unusedTreasures << Treasure.new("Varita de atizamiento", 3, [TreasureKind::ONEHAND])
+      @unusedTreasures << Treasure.new("Tentáculo de pega", 2, [TreasureKind::HELMET])
+      @unusedTreasures << Treasure.new("Zapato deja-amigos", 1, [TreasureKind::SHOES])
     end
 
     def initMonsterCardDeck
@@ -36,7 +69,7 @@ module NapakalakiGame
       @unusedMonsters << Monster.new("Angeles de la noche ibicenca", 14, badConsequence, prize)
 
       #El gorrón en el umbral
-      badConsequence = BadConsequence.newLevelNumberOfTreasures("Pierdes todos tus tesoros visibles", 0, 10, 0)
+      badConsequence = BadConsequence.newLevelNumberOfTreasures("Pierdes todos tus tesoros visibles", 0, BadConsequence.MAXTREASURES, 0)
       prize = Prize.new(3, 1)
       @unusedMonsters << Monster.new("El górron en el umbral", 10, badConsequence, prize)
 
@@ -113,27 +146,33 @@ module NapakalakiGame
     end
 
     def shuffleTreasures
-
+      @unusedTreasures.shuffle!
     end
 
     def shuffleMonsters
-
+      @unusedMonsters.shuffle!
     end
 
     def nextTreasure
   
     end
 
-    def  nextMonster
+    def nextMonster
   
     end
 
     def giveTreasureBack(t)
-
+      if(!@unusedTreasures.index(t).nil?)
+        @usedTreasures << t
+        @unusedTreasures.delete(t)
+      end
     end
     
     def giveMonsterBack(t)
-
+      if(!@unusedMonsters.index(t).nil?)
+        @usedMonsters << t
+        @unusedMonsters.delete(t)
+      end
     end
 
     def initCards

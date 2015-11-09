@@ -4,8 +4,13 @@
 
 module NapakalakiGame
   class Treasure
-    def initialize
-      
-    end
+    attr_accesor :name, :bonus, :type
+    
+    def initialize(name,bonus,t)
+      @name = name
+      @bonus = bonus
+      @type = t
+    end    
+    
   end
 end

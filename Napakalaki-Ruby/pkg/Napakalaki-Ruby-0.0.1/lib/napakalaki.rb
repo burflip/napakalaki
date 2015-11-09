@@ -1,13 +1,16 @@
 #encoding: utf-8
-include Singleton
 
-require './monster.rb'
-require './player.rb'
-require './card_dealer.rb'
-require './combat_result.rb'
+require 'singleton'
+require_relative 'monster.rb'
+require_relative 'player.rb'
+require_relative 'card_dealer.rb'
+require_relative 'combat_result.rb'
 
 module NapakalakiGame
   class Napakalaki
+    
+    include Singleton
+    
     def initialize(currentPlayer,players,dealer,currentMonster)
       @currentPlayer = ""
       @players = ""

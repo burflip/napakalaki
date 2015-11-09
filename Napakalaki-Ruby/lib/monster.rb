@@ -1,7 +1,7 @@
 #encoding: utf-8
-require './bad_consequence.rb'
-require './prize.rb'
-require './treasure_kind.rb'
+require_relative 'bad_consequence.rb'
+require_relative 'prize.rb'
+require_relative 'treasure_kind.rb'
 
 module NapakalakiGame
   
@@ -18,6 +18,14 @@ module NapakalakiGame
   
     def to_s
       "Monster{ name= #{@name}, combatLevel= #{@level}, prize= #{@prize}, badConsequence= #{@badConsequence}"
+    end
+    
+    def getLevelsGained
+      @prize.level
+    end
+    
+    def getTresuresGained
+      @prize.treasures
     end
   
   end
