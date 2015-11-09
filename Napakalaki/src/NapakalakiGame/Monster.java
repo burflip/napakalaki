@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package napakalaki;
+package NapakalakiGame;
 
 /**
  *
@@ -37,10 +37,18 @@ public class Monster {
     public BadConsequence getBadConsequence() {
         return badConsequence;
     }
+    
 
     @Override
     public String toString() {
         return "Monster{" + "name=" + name + ", combatLevel=" + combatLevel + ", prize=" + prize + ", badConsequence=" + badConsequence + '}';
     }    
     
+    public int getLevelsGained() {
+        return 0;
+    }
+    
+    public int getTreasuresGained() {
+        return 0;
+    }
 }
