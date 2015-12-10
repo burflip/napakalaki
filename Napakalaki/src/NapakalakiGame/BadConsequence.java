@@ -12,11 +12,16 @@ public class BadConsequence {
     private String text;
     private int levels=0, nVisibleTreasures=0, nHiddenTreasures=0;
     private boolean death=false;
-    private ArrayList<TreasureKind> specificHiddenTreasures = new ArrayList();
-    private ArrayList<TreasureKind> specificVisibleTreasures = new ArrayList();
+    private ArrayList<TreasureKind> specificHiddenTreasures;
+    private ArrayList<TreasureKind> specificVisibleTreasures;
     
     public boolean isEmpty(){
         return (this.nHiddenTreasures == 0 && this.nVisibleTreasures == 0 && this.specificHiddenTreasures.isEmpty() && this.specificVisibleTreasures.isEmpty());
+    }
+    
+    public BadConsequence() {
+        specificHiddenTreasures = new ArrayList();
+        specificVisibleTreasures = new ArrayList();
     }
     
     public BadConsequence(String text, int levels, int nVisible, int nHidden) {
@@ -24,11 +29,15 @@ public class BadConsequence {
         this.levels = levels;
         this.nVisibleTreasures = nVisible;
         this.nHiddenTreasures = nHidden;
+        specificHiddenTreasures = new ArrayList();
+        specificVisibleTreasures = new ArrayList();
     }
 
     public BadConsequence(String text, boolean death) {
         this.text = text;
         this.death = death;
+        specificHiddenTreasures = new ArrayList();
+        specificVisibleTreasures = new ArrayList();
     }
 
     public BadConsequence(String text, int levels, ArrayList<TreasureKind> tVisible, ArrayList<TreasureKind> tHidden) {
@@ -68,23 +77,23 @@ public class BadConsequence {
 
     @Override
     public String toString() {
-        return "BadConsequence{" + "text=" + text + ", levels=" + levels + ", nVisibleTreasures=" + nVisibleTreasures + ", nHiddenTreasures=" + nHiddenTreasures + ", death=" + death + ", specificHiddenTreasures=" + specificHiddenTreasures + ", specificVisibleTreasures=" + specificVisibleTreasures + '}';
+        return "BadConsequence{\n" + "text=\n" + text + "\n levels=" + levels + "\n nVisibleTreasures=" + nVisibleTreasures + "\n nHiddenTreasures=" + nHiddenTreasures + "\n death=" + death + "\n specificHiddenTreasures=" + specificHiddenTreasures + "\n specificVisibleTreasures=" + specificVisibleTreasures + "\n}";
     }  
     
     public void substractVisibleTreasure(Treasure t){
-        int i = this.specificVisibleTreasures.indexOf(t);
+        int i = this.specificVisibleTreasures.indexOf(t.getType());
         if(i == -1 && this.nVisibleTreasures > 0) {
             this.nVisibleTreasures--;
-        } else {
+        } else if (i != -1) {
             this.specificVisibleTreasures.remove(i);
         }
     }
     
     public void substractHiddenTreasure(Treasure t){
-        int i = this.specificHiddenTreasures.indexOf(t);
+        int i = this.specificHiddenTreasures.indexOf(t.getType());
         if(i == -1 && this.nHiddenTreasures > 0) {
             this.nHiddenTreasures--;
-        } else {
+        } else if (i != -1) {
             this.specificHiddenTreasures.remove(i);
         }
     }
@@ -97,17 +106,47 @@ public class BadConsequence {
             this.nHiddenTreasures = h.size();
         }
         
-        for(Treasure t:v) {
-            if(!this.specificVisibleTreasures.contains(t.getType())) {
-                this.specificVisibleTreasures.remove(t.getType());
+        ArrayList<TreasureKind> temp_tk = new ArrayList();
+        ArrayList<Treasure> temp_t = new ArrayList(v);
+        
+        for(TreasureKind tk:this.specificVisibleTreasures) {
+            boolean contains = false;
+            int index = 0;
+            for(Treasure t:temp_t) {
+                if(tk == t.getType()) {
+                    contains = true;
+                    index = temp_t.indexOf(t);
+                }
             }
+            
+            if(contains) {
+                temp_tk.add(tk);
+                temp_t.remove(index);
+            }
+                
         }
         
-        for(Treasure t:h) {
-            if(!this.specificHiddenTreasures.contains(t.getType())) {
-                this.specificHiddenTreasures.remove(t.getType());
+        this.specificVisibleTreasures = new ArrayList(temp_tk);
+        temp_t = new ArrayList(h);
+        temp_tk.clear();
+        
+        for(TreasureKind tk:this.specificHiddenTreasures) {
+            boolean contains = false;
+            int index = 0;
+            for(Treasure t:temp_t) {
+                if(tk == t.getType()) {
+                    contains = true;
+                    index = temp_t.indexOf(t);
+                }
             }
+            
+            if(contains) {
+               temp_tk.add(tk);
+               temp_t.remove(index); 
+            } 
         }
+        
+        this.specificHiddenTreasures = new ArrayList(temp_tk);
         
         return this;
     } 

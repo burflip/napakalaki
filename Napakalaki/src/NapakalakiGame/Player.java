@@ -24,6 +24,12 @@ public class Player {
 
     public Player(String name) {
         this.name = name;
+        this.hiddenTreasures = new ArrayList();
+        this.visibleTreasures = new ArrayList();
+        this.dead = true;
+        this.pendingBadConsequence = new BadConsequence();
+        this.canISteal = true;
+        this.level = 8;
     }
 
     public String getName() {
@@ -31,7 +37,7 @@ public class Player {
     }
     
     private void bringToLife(){
-        this.dead = true;
+        this.dead = false;
     }
     
     private int getCombatLevel(){
@@ -56,6 +62,8 @@ public class Player {
         int final_level = this.level - l;
         if(final_level < 1){
             this.level = 1;
+            this.dead = true;
+            this.discardAllTreasures();
         } else {
             this.level = final_level;
         }
@@ -82,7 +90,11 @@ public class Player {
     private void applyBadConsequence(Monster m){
         BadConsequence pendingBad, badConsequence = m.getBadConsequence();
         int nLevels = badConsequence.getLevels();
+        if(badConsequence.isDeath())
+            nLevels = 10;
+        
         this.decrementLevels(nLevels);
+        
         pendingBad = badConsequence.adjustToFitTreasureLists(this.visibleTreasures, hiddenTreasures);
         this.setPendingBadConsequence(pendingBad);
     }
@@ -94,6 +106,7 @@ public class Player {
         boolean has_two_handed = false;
         for(Iterator<Treasure> iter = this.visibleTreasures.iterator(); iter.hasNext() && can_make;) {
             Treasure current_t = iter.next();
+            
             if(current_t.getType() == t.getType() && t.getType() != TreasureKind.ONEHAND) {
                 can_make=false;
             } else if(current_t.getType() == t.getType() && t.getType() == TreasureKind.ONEHAND && has_two_hand == true) {
@@ -115,8 +128,12 @@ public class Player {
             if(t.getType() == TreasureKind.ONEHAND && has_two_handed){
                 can_make = false;
             }
+            
+            if(t.getType() == TreasureKind.ONEHAND && has_two_hand){
+                can_make = false;
+            }
         }
-        return true;
+        return can_make;
     }
     
     private int howManyVisibleTreasures(TreasureKind tKind){
@@ -249,7 +266,8 @@ public class Player {
         Treasure t;
         if(t_i > 0) {
            int random = ThreadLocalRandom.current().nextInt(0, t_i);
-           t = this.hiddenTreasures.get(t_i);
+           t = this.hiddenTreasures.get(random);
+           this.hiddenTreasures.remove(random);
         } else {
             t =  null;
         }
@@ -258,7 +276,7 @@ public class Player {
     }
     
     public boolean canISteal(){
-        return true;
+        return this.canISteal;
     }
     
     private boolean canYouGiveMeATreasure(){
@@ -269,14 +287,25 @@ public class Player {
         this.canISteal = true;
     }
     
-    private void discardAllTreasures(){
-        for(Treasure t:this.visibleTreasures) {
+    public void discardAllTreasures(){
+       ArrayList<Treasure> v = new ArrayList(this.visibleTreasures),
+                h = new ArrayList(this.hiddenTreasures);
+        
+        for(Treasure t:v) {
             this.discardVisibleTreasure(t);
         }
-        for(Treasure t:this.hiddenTreasures) {
+        
+        for(Treasure t:h) {
             this.discardHiddenTreasure(t);
         }
     }
+
+    @Override
+    public String toString() {
+        return name + "{\n level=" + level + "\n dead=" + dead + "\n canISteal=" + canISteal + "\n enemy=" + enemy.getName() + "\n pendingBadConsequence=" + pendingBadConsequence + "\n hiddenTreasures=" + hiddenTreasures + "\n}";
+    }
+    
+    
     
     
 }

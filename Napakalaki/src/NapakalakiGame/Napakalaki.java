@@ -37,7 +37,7 @@ public class Napakalaki {
             if(pos == s-1) {
                 p = this.players.get(0);
             } else {
-                p = this.players.get(pos);
+                p = this.players.get(pos+1);
             }            
         } else {
             int random = ThreadLocalRandom.current().nextInt(0, players.size());
