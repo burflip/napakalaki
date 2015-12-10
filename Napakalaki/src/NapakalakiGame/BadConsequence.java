@@ -90,6 +90,25 @@ public class BadConsequence {
     }
     
     public BadConsequence adjustToFitTreasureLists(ArrayList<Treasure> v, ArrayList<Treasure> h){
+        if(this.getnVisibleTreasures() > v.size()) {
+            this.nVisibleTreasures = v.size();
+        }
+        if(this.getnHiddenTreasures() > h.size()) {
+            this.nHiddenTreasures = h.size();
+        }
+        
+        for(Treasure t:v) {
+            if(!this.specificVisibleTreasures.contains(t.getType())) {
+                this.specificVisibleTreasures.remove(t.getType());
+            }
+        }
+        
+        for(Treasure t:h) {
+            if(!this.specificHiddenTreasures.contains(t.getType())) {
+                this.specificHiddenTreasures.remove(t.getType());
+            }
+        }
+        
         return this;
     } 
 }

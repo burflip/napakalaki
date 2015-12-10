@@ -19,11 +19,17 @@ module NapakalakiGame
     end
     
     def initPlayers(names)
-      
+      names.each { |name| @players << Player.new(name)   }
     end
     
     def nextPlayer()
-      
+      if(@currentPlayer == "")
+        i = Random.rand(@players.size - 1)
+        @currentPlayer = @players[i]
+        @players[i]
+      else
+        
+      end
     end
     
     def nextTurnAllowed()

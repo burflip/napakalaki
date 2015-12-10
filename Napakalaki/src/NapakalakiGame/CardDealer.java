@@ -276,7 +276,10 @@ public class CardDealer {
     }
 
     public void initCards() {
-
+        this.initTreasureCardDeck();
+        this.initMonsterCardDeck();
+        this.shuffleMonsters();
+        this.shuffleTreasures();
     }
 
 }
