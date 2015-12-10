@@ -15,10 +15,13 @@ import java.util.concurrent.ThreadLocalRandom;
  * @author valentin
  */
 public class PruebaNapakalaki {
-    
 
     /**
      * @param args the command line arguments
      */
+    
+    public static void main(String[] args) {
+        
+    }
     
 }
