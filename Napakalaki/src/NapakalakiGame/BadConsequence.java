@@ -72,11 +72,21 @@ public class BadConsequence {
     }  
     
     public void substractVisibleTreasure(Treasure t){
-        
+        int i = this.specificVisibleTreasures.indexOf(t);
+        if(i == -1 && this.nVisibleTreasures > 0) {
+            this.nVisibleTreasures--;
+        } else {
+            this.specificVisibleTreasures.remove(i);
+        }
     }
     
     public void substractHiddenTreasure(Treasure t){
-        
+        int i = this.specificHiddenTreasures.indexOf(t);
+        if(i == -1 && this.nHiddenTreasures > 0) {
+            this.nHiddenTreasures--;
+        } else {
+            this.specificHiddenTreasures.remove(i);
+        }
     }
     
     public BadConsequence adjustToFitTreasureLists(ArrayList<Treasure> v, ArrayList<Treasure> h){

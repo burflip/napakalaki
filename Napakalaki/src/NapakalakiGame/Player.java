@@ -6,6 +6,8 @@
 package NapakalakiGame;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  *
@@ -72,6 +74,34 @@ public class Player {
     }
     
     private boolean canMakeTreasureVisible(Treasure t){
+        boolean can_make = true;
+        boolean has_one_hand = false;
+        boolean has_two_hand = false;
+        boolean has_two_handed = false;
+        for(Iterator<Treasure> iter = this.visibleTreasures.iterator(); iter.hasNext() && can_make;) {
+            Treasure current_t = iter.next();
+            if(current_t.getType() == t.getType() && t.getType() != TreasureKind.ONEHAND) {
+                can_make=false;
+            } else if(current_t.getType() == t.getType() && t.getType() == TreasureKind.ONEHAND && has_two_hand == true) {
+                can_make=false;
+            }
+            
+            if(current_t.getType() == TreasureKind.ONEHAND && has_one_hand == false) {
+                has_one_hand = true;
+            } else if(current_t.getType() == TreasureKind.ONEHAND && has_two_hand == false) {
+                has_two_hand = true;
+            } else if(current_t.getType() == TreasureKind.BOTHHANDS) {
+                has_two_handed = true;
+            }
+            
+            if(t.getType() == TreasureKind.BOTHHANDS && has_one_hand){
+                can_make = false;
+            }
+            
+            if(t.getType() == TreasureKind.ONEHAND && has_two_handed){
+                can_make = false;
+            }
+        }
         return true;
     }
     
@@ -151,7 +181,16 @@ public class Player {
     }
     
     private Treasure giveMeATreasure(){
-        return new Treasure("", 0, TreasureKind.ARMOR);
+        int t_i = this.hiddenTreasures.size();
+        Treasure t;
+        if(t_i > 0) {
+           int random = ThreadLocalRandom.current().nextInt(0, t_i);
+           t = this.hiddenTreasures.get(t_i);
+        } else {
+            t =  null;
+        }
+        
+        return t;
     }
     
     public boolean canISteal(){

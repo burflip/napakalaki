@@ -236,11 +236,29 @@ public class CardDealer {
     }
 
     public Treasure nextTreasure() {
-        return new Treasure("", 5, TreasureKind.ARMOR);
+        int position = this.unusedTreasures.size()-1;
+        if(position < 0) {
+            this.unusedTreasures = new ArrayList<>(this.usedTreasures);
+            this.shuffleTreasures();
+            this.usedTreasures.clear();
+        }
+        Treasure t = this.unusedTreasures.get(position);
+        this.unusedTreasures.remove(position);
+        this.usedTreasures.add(t);
+        return t;
     }
 
     public Monster nextMonster() {
-        return new Monster("", 5, new BadConsequence("", true), new Prize(2, 3));
+        int position = this.unusedMonsters.size()-1;
+        if(position < 0) {
+            this.unusedMonsters = new ArrayList<>(this.usedMonsters);
+            this.shuffleTreasures();
+            this.usedMonsters.clear();
+        }
+        Monster m = this.unusedMonsters.get(position);
+        this.unusedMonsters.remove(position);
+        this.usedMonsters.add(m);
+        return m;
     }
 
     public void giveTreasureBack(Treasure t) {

@@ -6,6 +6,7 @@
 package NapakalakiGame;
 
 import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  *
@@ -23,19 +24,41 @@ public class Napakalaki {
     }
     
     private void initPlayers(ArrayList<String> nombres){
-        
+        for(String nombre : nombres) {
+            this.players.add(new Player(nombre));
+        }
     }
     
     private Player nextPlayer(){
-        return new Player("");
+        Player p;
+        if(currentPlayer != null) {
+            int s = this.players.size();
+            int pos = this.players.indexOf(this.currentPlayer);
+            if(pos == s-1) {
+                p = this.players.get(0);
+            } else {
+                p = this.players.get(pos);
+            }            
+        } else {
+            int random = ThreadLocalRandom.current().nextInt(0, players.size());
+            p = this.players.get(random);
+        }
+        return p;
     }
     
     private boolean nextTurnAllowed(){
-        return true;
+       return (this.currentPlayer == null ? true : currentPlayer.validState());
     }
     
     private void setEnemies(){
-        
+        int random = ThreadLocalRandom.current().nextInt(0, players.size());
+        for(Player player : this.players){
+            while(player.getName() == null ? this.players.get(random).getName() == null : player.getName().equals(this.players.get(random).getName())) {
+                random = ThreadLocalRandom.current().nextInt(0, players.size());
+            }
+            player.setEnemy(players.get(random));
+            random = ThreadLocalRandom.current().nextInt(0, players.size());
+        }
     }
     
     public static Napakalaki getInstance(){
@@ -78,7 +101,7 @@ public class Napakalaki {
         return true;
     }
     public boolean endOfGame(CombatResult result){
-        return true;
+        return (result == CombatResult.WINGAME ? true : false);
     }
     
 }
