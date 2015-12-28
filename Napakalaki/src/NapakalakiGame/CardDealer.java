@@ -21,6 +21,8 @@ public class CardDealer {
     private ArrayList<Monster> unusedMonsters = new ArrayList<>();
     private ArrayList<Treasure> usedTreasures = new ArrayList<>();
     private ArrayList<Treasure> unusedTreasures = new ArrayList<>();
+    private ArrayList<Cultist> unusedCultist = new ArrayList<>();
+    private ArrayList<Cultist> usedCultist = new ArrayList<>();
 
     private CardDealer() {
 
@@ -216,6 +218,56 @@ public class CardDealer {
         badConsequence = new BadConsequence("Te faltan manos para tanta cabeza. Pierdes 3 niveles y tus tesoros visibles de las manos", 3, new ArrayList(Arrays.asList(TreasureKind.ONEHAND, TreasureKind.ONEHAND, TreasureKind.BOTHHANDS)), new ArrayList(Arrays.asList()));
         prize = new Prize(1, 1);
         unusedMonsters.add(new Monster("Bicéfalo", 20, badConsequence, prize));
+        
+        /**
+         * Monstruos con sectarios
+         */
+        
+        //El mal indecible impronunciable
+        badConsequence = new BadConsequence("Pierdes una mano visible", 0, new ArrayList(Arrays.asList(TreasureKind.ONEHAND)), new ArrayList(Arrays.asList()));
+        prize = new Prize(3, 1);
+        unusedMonsters.add(new Monster("El mal indecible impronunciable", 10, badConsequence, prize,-2));
+        
+        //Testigos Oculares
+        badConsequence = new BadConsequence("Pierdes tus tesoros visibles. Jajaja.", 0, BadConsequence.MAXTREASURES, 0);
+        prize = new Prize(2, 1);
+        unusedMonsters.add(new Monster("Testigos Oculares", 6, badConsequence, prize,2));
+        
+        //El gran cthulhu
+        badConsequence = new BadConsequence("Hoy no es tu día de suerte. Mueres", true);
+        prize = new Prize(2, 5);
+        unusedMonsters.add(new Monster("El gran cthulhu", 20, badConsequence, prize, 4));
+        
+        //Serpiente Político
+        badConsequence = new BadConsequence("Tu gobierno te recorta 2 niveles", 2, 0, 0);
+        prize = new Prize(2, 1);
+        unusedMonsters.add(new Monster("Serpiente Político", 8, badConsequence, prize, -2));
+        
+        //Felpuggoth
+        badConsequence = new BadConsequence("Pierdes tu casco y tu armadura visible. Pierdes tus manos ocultas.", 0, new ArrayList(Arrays.asList(TreasureKind.HELMET, TreasureKind.ARMOR)), new ArrayList(Arrays.asList(TreasureKind.ONEHAND,TreasureKind.ONEHAND,TreasureKind.BOTHHANDS)));
+        prize = new Prize(1, 1);
+        unusedMonsters.add(new Monster("Felpuggoth", 2, badConsequence, prize, 5));
+        
+        //Shoggoth
+        badConsequence = new BadConsequence("Pierdes 2 niveles", 2, 0, 0);
+        prize = new Prize(4, 2);
+        unusedMonsters.add(new Monster("Shoggoth", 16, badConsequence, prize, -4));
+        
+        //Lolitagooth
+        badConsequence = new BadConsequence("Pintalabios negro. Pierdes 2 niveles", 2, 0, 0);
+        prize = new Prize(1, 1);
+        unusedMonsters.add(new Monster("Lolitagooth", 2, badConsequence, prize, 3));
+    }
+    
+    private void initCultistCardDeck() {
+        Cultist c = new Cultist("Sectario",1);
+        for(int i=0; i<4; i++){
+            this.unusedCultist.add(c);
+        }
+        c = new Cultist("Sectario",2);
+        for(int i=0; i<2; i++){
+            this.unusedCultist.add(c);
+        }
     }
 
     private void shuffleTreasures() {
@@ -229,6 +281,10 @@ public class CardDealer {
 
     private void shuffleMonsters() {
         Collections.shuffle(this.unusedMonsters, ThreadLocalRandom.current());
+    }
+    
+    private void shuffleCultists() {
+        Collections.shuffle(this.unusedCultist, ThreadLocalRandom.current());
     }
 
     public static CardDealer getInstance() {
@@ -252,13 +308,26 @@ public class CardDealer {
         int position = this.unusedMonsters.size()-1;
         if(position < 0) {
             this.unusedMonsters = new ArrayList<>(this.usedMonsters);
-            this.shuffleTreasures();
+            this.shuffleMonsters();
             this.usedMonsters.clear();
         }
         Monster m = this.unusedMonsters.get(position);
         this.unusedMonsters.remove(position);
         this.usedMonsters.add(m);
         return m;
+    }
+    
+    public Cultist nextCultist() {
+        int position = this.unusedCultist.size()-1;
+        if(position < 0) {
+            this.unusedCultist = new ArrayList<>(this.usedCultist);
+            this.shuffleCultists();
+            this.usedCultist.clear();
+        }
+        Cultist c = this.unusedCultist.get(position);
+        this.unusedCultist.remove(position);
+        this.usedCultist.add(c);
+        return c;
     }
 
     public void giveTreasureBack(Treasure t) {

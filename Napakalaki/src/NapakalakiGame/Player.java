@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package NapakalakiGame;
 
 import java.util.ArrayList;
@@ -18,7 +13,7 @@ public class Player {
     private String name;
     private int level;
     private boolean dead, canISteal;
-    private Player enemy;
+    protected Player enemy;
     private BadConsequence pendingBadConsequence;
     private ArrayList<Treasure> hiddenTreasures, visibleTreasures;
 
@@ -29,7 +24,17 @@ public class Player {
         this.dead = true;
         this.pendingBadConsequence = new BadConsequence();
         this.canISteal = true;
-        this.level = 8;
+        this.level = 1;
+    }
+    
+    public Player(Player p) {
+        this.name = p.getName();
+        this.hiddenTreasures = new ArrayList<>(p.getHiddenTreasures());
+        this.visibleTreasures = new ArrayList<>(p.getVisibleTreasures());
+        this.dead = p.isDead();
+        this.pendingBadConsequence = new BadConsequence(p.getPendingBadConsequence());
+        this.canISteal = p.canISteal();
+        this.level = p.getLevels();
     }
 
     public String getName() {
@@ -40,7 +45,7 @@ public class Player {
         this.dead = false;
     }
     
-    private int getCombatLevel(){
+    protected int getCombatLevel(){
         
         int combatLevel = this.getLevels();
         for (Treasure t: this.visibleTreasures){
@@ -298,6 +303,10 @@ public class Player {
         for(Treasure t:h) {
             this.discardHiddenTreasure(t);
         }
+    }
+    
+    protected int getOponentLevel(Monster m) {
+        return m.getCombatLevel();
     }
 
     @Override

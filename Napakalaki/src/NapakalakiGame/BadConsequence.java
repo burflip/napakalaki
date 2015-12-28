@@ -46,6 +46,15 @@ public class BadConsequence {
         this.text = text;
         this.levels = levels;
     }
+    
+    public BadConsequence(BadConsequence b) {
+        this.text = b.getText();
+        this.levels = b.getLevels();
+        this.nVisibleTreasures = b.getnVisibleTreasures();
+        this.nHiddenTreasures = b.getnHiddenTreasures();
+        specificHiddenTreasures = new ArrayList<>(b.getSpecificHiddenTreasures());
+        specificVisibleTreasures = new ArrayList<>(b.getSpecificVisibleTreasures());
+    }
 
     public String getText() {
         return text;
