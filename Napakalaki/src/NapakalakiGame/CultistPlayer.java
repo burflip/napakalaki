@@ -1,5 +1,7 @@
 package NapakalakiGame;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 /**
  *
  * @author valentin
@@ -9,13 +11,17 @@ public class CultistPlayer extends Player {
     private static int totalCultistPlayers = 0;
     private Cultist myCultistCard;
 
-    public CultistPlayer(Cultist myCultistCard, Player p) {
+    public CultistPlayer(Player p, Cultist myCultistCard) {
         super(p);
         this.myCultistCard = myCultistCard;
+        CultistPlayer.totalCultistPlayers++;
     }
     
     protected int getCombatLevel() {
-        return 1;
+        float level = super.getCombatLevel();
+        level += level*0.20;
+        level += this.myCultistCard.getGainedLevels()*CultistPlayer.totalCultistPlayers;
+        return (Math.round(level));
     }
     
     protected int getOponentLevel(Monster m) {
@@ -23,20 +29,34 @@ public class CultistPlayer extends Player {
     }
     
     protected boolean shouldConvert() {
-        return true;
+        return false;
     }
     
     private Treasure giveMATreasure() {
         return new Treasure("",1,TreasureKind.ARMOR);
     }
-    
-    private boolean canYouGiveMeATreasure() {
-        return true;
-    }
 
     public static int getTotalCultistPlayers() {
         return totalCultistPlayers;
-    }    
+    }
+    
+    protected boolean canYouGiveMeATreasure(){
+        return !(this.visibleTreasures.isEmpty());
+    }
+    
+    private Treasure giveMeATreasure(){
+        int t_i = this.visibleTreasures.size();
+        Treasure t;
+        if(t_i > 0) {
+           int random = ThreadLocalRandom.current().nextInt(0, t_i);
+           t = this.visibleTreasures.get(random);
+           this.visibleTreasures.remove(random);
+        } else {
+            t =  null;
+        }
+        return t;
+    }
     
     
+        
 }

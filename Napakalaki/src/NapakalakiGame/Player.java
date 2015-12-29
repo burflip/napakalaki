@@ -15,7 +15,7 @@ public class Player {
     private boolean dead, canISteal;
     protected Player enemy;
     private BadConsequence pendingBadConsequence;
-    private ArrayList<Treasure> hiddenTreasures, visibleTreasures;
+    protected ArrayList<Treasure> hiddenTreasures, visibleTreasures;
 
     public Player(String name) {
         this.name = name;
@@ -187,7 +187,7 @@ public class Player {
     
     public CombatResult combat(Monster m){
         int myLevel = this.getCombatLevel();
-        int monsterLevel = m.getCombatLevel();
+        int monsterLevel = this.getOponentLevel(m);
         CombatResult c_result;
         if(myLevel > monsterLevel) {
             this.applyPrize(m);
@@ -197,8 +197,12 @@ public class Player {
                 c_result = CombatResult.WIN;
             }
         } else {
-            this.applyBadConsequence(m);
-            c_result = CombatResult.LOSE;
+            if(this.shouldConvert()) {
+                c_result = CombatResult.LOSEANDCONVERT;   
+            } else {
+                this.applyBadConsequence(m);
+                c_result = CombatResult.LOSE;  
+            }
         }
         return c_result;
     }
@@ -284,7 +288,7 @@ public class Player {
         return this.canISteal;
     }
     
-    private boolean canYouGiveMeATreasure(){
+    protected boolean canYouGiveMeATreasure(){
         return !(this.hiddenTreasures.isEmpty());
     }
     
@@ -308,13 +312,17 @@ public class Player {
     protected int getOponentLevel(Monster m) {
         return m.getCombatLevel();
     }
+    
+    protected boolean shouldConvert() {
+        Dice dice = Dice.getInstance();
+        return (dice.nextNumber() == 1);
+    }
 
     @Override
     public String toString() {
         return name + "{\n level=" + level + "\n dead=" + dead + "\n canISteal=" + canISteal + "\n enemy=" + enemy.getName() + "\n pendingBadConsequence=" + pendingBadConsequence + "\n hiddenTreasures=" + hiddenTreasures + "\n}";
     }
-    
-    
+       
     
     
 }

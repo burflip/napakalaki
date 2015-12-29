@@ -41,7 +41,7 @@ public class Monster {
     }
     
     public int getCombatLevelAgainstCultistPlayer() {
-        return this.levelChangeAgainstCultistPlayer;
+        return (this.combatLevel + this.levelChangeAgainstCultistPlayer);
     }
 
     public Prize getPrize() {
