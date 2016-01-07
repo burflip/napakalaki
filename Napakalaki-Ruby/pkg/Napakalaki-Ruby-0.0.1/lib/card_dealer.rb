@@ -11,6 +11,8 @@ module NapakalakiGame
       @usedTreasures = Array.new
       @unusedMonsters = Array.new
       @usedMonsters = Array.new
+      @unusedCultists = Array.new
+      @usedCultists = Array.new
     end
     
     def initTreasureCardDeck
@@ -142,15 +144,71 @@ module NapakalakiGame
       badConsequence = BadConsequence.newLevelSpecificTreasures("Te faltan manos para tanta cabeza. Pierdes 3 niveles y tus tesoros visibles de las manos", 3, [TreasureKind::ONEHAND, TreasureKind::ONEHAND, TreasureKind::BOTHHANDS], [])
       prize = Prize.new(1, 1)
       @unusedMonsters << Monster.new("Bicéfalo", 20, badConsequence, prize)
+      
+      #
+      # MONSTRUOS CON SECTARIOS
+      #
+      
+      #El mal indecible impronunciable
+      bc = BadConsequence.new_level_specific_treasures("Pierdes 1 mano visible",0,[TreasureKind.ONEHAND],[])
+      prize = Prize.new(3,1);
+      @unusedMonsters << Monster.new("El mal indecible impronunciable",10,bc,prize,-2)
+
+      #Testigos oculares
+      bc = BadConsequence.new_level_specific_treasures("Pierdes tus tesoros visibles. Ja ja ja.",0,[TreasureKind::ONEHAND,TreasureKind::BOTHHANDS,TreasureKind::HELMET,TreasureKind::ARMOR,TreasureKind::SHOES],[])
+      prize = Prize.new(2,1);
+      @unusedMonsters << Monster.new("Testigos oculares",6,bc,prize,2)
+
+      #El gran cthulhu     
+      prize = Prize.new(2, 5)
+      bc = BadConsequence.new_death("Hoy no es tu dia de suerte. Mueres",true)
+      @unused_monsters << Monster.new("El gran Cthulhu", 20, bc, prize,4)
+
+      #Serpiente Político
+      bc = BadConsequence.new_level_number_of_treasures("Tu gobierno te recorta 2 niveles",2 , 0, 0)
+      prize = Prize.new(2,1);
+      @unusedMonsters << Monster.new("Serpiente Político",8,bc,prize,-2)
+
+      #Felpuggoth
+      bc = BadConsequence.new_level_specific_treasures("Pierdes tu casco y tu armadura visible.Pierdes tus manos ocultas",0,[TreasureKind::HELMET,TreasureKind::ARMOR],[TreasureKind::BOTHHANDS])
+      prize = Prize.new(1,1);
+      @unusedMonsters << Monster.new("Felpuggoth",2,bc,prize,5)
+
+      #Shoggoth
+      bc = BadConsequence.new_level_number_of_treasures("Pierdes 2 niveles",2 , 0, 0)
+      prize = Prize.new(4,1);
+      @unusedMonsters << Monster.new("Shoggoth",16,bc,prize,-4)
+
+      #Lolitagooth
+      bc = BadConsequence.new_level_number_of_treasures("Pintalabios negro. Pierdes 2 niveles",2 , 0, 0)
+      prize = Prize.new(1,1);
+      @unusedMonsters << Monster.new("Lolitagooth",12,bc,prize,3)
 
     end
 
+    def initCultistCardDeck
+      c = Cultist.new('Sectario', 1)
+      for i in 1..4
+        @unusedCultists << c
+      end
+      
+      c = Cultist.new('Sectario', 2)
+      for i in 1..2
+        @unusedCultists << c
+      end
+      
+    end
+    
     def shuffleTreasures
       @unusedTreasures.shuffle!
     end
 
     def shuffleMonsters
       @unusedMonsters.shuffle!
+    end
+    
+    def shuffleCultists
+      @unusedCultists.shuffle!
     end
 
     def nextTreasure
@@ -178,6 +236,20 @@ module NapakalakiGame
       @usedMonsters.push(@unusedMonsters.pop)
       @usedMonsters.last 
     end
+    
+    def nextCultist
+      if @unusedCultists.empty?
+          for i in 0 .. @unusedCultists.size
+            @unusedCultists.push(@usedCultists.at(i))
+          end
+          shuffleMonsters
+        end
+        
+      @usedCultists.clear
+      @usedCultists.push(@unusedCultists.pop)
+      @usedCultists.last 
+    end
+
 
     def giveTreasureBack(t)
       if(!@unusedTreasures.index(t).nil?)
@@ -196,11 +268,13 @@ module NapakalakiGame
     def initCards
       initTreasureCardDeck
       initMonsterCardDeck
+      initCultistCardDeck
       shuffleTreasures
       shuffleMonsters
+      shuffleCultists
     end
     
-    private :initTreasureCardDeck, :initMonsterCardDeck, :shuffleTreasures, :shuffleMonsters
+    private :initTreasureCardDeck, :initMonsterCardDeck, :initCultistCardDeck, :shuffleTreasures, :shuffleMonsters, :shuffleCultists
     
   end
 end

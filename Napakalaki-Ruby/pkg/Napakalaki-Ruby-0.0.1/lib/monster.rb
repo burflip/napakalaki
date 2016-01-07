@@ -7,11 +7,12 @@ module NapakalakiGame
   
   class Monster
   
-    def initialize(name,level,bc,prize)
+    def initialize(name,level,bc,prize,ic)
       @name = name
       @level = level
       @badConsequence = bc
       @prize = prize
+      @levelChangeAgainstCultistPlayer = ic
     end
   
     attr_reader :name, :level, :badConsequence, :prize
@@ -27,6 +28,8 @@ module NapakalakiGame
     def getTresuresGained
       @prize.treasures
     end
+    
+    def 
   
   end
 end
