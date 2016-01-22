@@ -15,10 +15,12 @@ module NapakalakiGame
       @levelChangeAgainstCultistPlayer = ic
     end
   
-    attr_reader :name, :level, :badConsequence, :prize
-  
+    attr_reader :name, :level, :badConsequence, :prize, :levelChangeAgainstCultistPlayer
+    
+    private_class_method :new
+    
     def to_s
-      "Monster{ name= #{@name}, combatLevel= #{@level}, prize= #{@prize}, badConsequence= #{@badConsequence}"
+      "Monster{ name= #{@name}, combatLevel= #{@level}, prize= #{@prize}, badConsequence= #{@badConsequence}, ic=#{@ic}"
     end
     
     def getLevelsGained
@@ -29,7 +31,13 @@ module NapakalakiGame
       @prize.treasures
     end
     
-    def 
+    def self.newMonster(name,level,bc,prize)
+      self.new(name,level,bc,prize,nil)
+    end
+    
+    def self.newCultistMonster(name,level,bc,prize,ic)
+      self.new(name,level,bc,prize,ic)
+    end
   
   end
 end

@@ -5,19 +5,14 @@
  */
 package NapakalakiGame;
 
-import java.util.ArrayList;
-
-/**
- *
- * @author root
- */
 public class DeathBadConsequence extends NumericBadConsequence{
     
     private boolean death=false;
     
     public DeathBadConsequence(String text, boolean death) {
+        super(text,Player.MAXLEVEL,MAXTREASURES,MAXTREASURES);
         this.text = text;
         this.death = death;
     }
-    
+   
 }

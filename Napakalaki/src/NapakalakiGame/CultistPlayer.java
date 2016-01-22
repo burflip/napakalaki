@@ -31,10 +31,6 @@ public class CultistPlayer extends Player {
     protected boolean shouldConvert() {
         return false;
     }
-    
-    private Treasure giveMATreasure() {
-        return new Treasure("",1,TreasureKind.ARMOR);
-    }
 
     public static int getTotalCultistPlayers() {
         return totalCultistPlayers;

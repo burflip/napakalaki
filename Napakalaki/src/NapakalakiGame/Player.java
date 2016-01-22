@@ -22,7 +22,7 @@ public class Player {
         this.hiddenTreasures = new ArrayList();
         this.visibleTreasures = new ArrayList();
         this.dead = true;
-        this.pendingBadConsequence = new BadConsequence();
+        this.pendingBadConsequence = null;
         this.canISteal = true;
         this.level = 1;
     }
@@ -32,7 +32,7 @@ public class Player {
         this.hiddenTreasures = new ArrayList<>(p.getHiddenTreasures());
         this.visibleTreasures = new ArrayList<>(p.getVisibleTreasures());
         this.dead = p.isDead();
-        this.pendingBadConsequence = new BadConsequence(p.getPendingBadConsequence());
+        this.pendingBadConsequence = null;
         this.canISteal = p.canISteal();
         this.level = p.getLevels();
     }
@@ -95,8 +95,6 @@ public class Player {
     private void applyBadConsequence(Monster m){
         BadConsequence pendingBad, badConsequence = m.getBadConsequence();
         int nLevels = badConsequence.getLevels();
-        if(badConsequence.isDeath())
-            nLevels = 10;
         
         this.decrementLevels(nLevels);
         
