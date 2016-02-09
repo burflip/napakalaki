@@ -19,16 +19,20 @@ module NapakalakiGame
       level += @myCultistCard.getGainedLevels * @@totalCultistPlayers
     end
     
+    def getOponentLevel(m)
+      m.getCombatLevelAgainstCultistPlayer
+    end
+    
     def shouldConvert
       false
     end
     
-    def getTotalCultistPlayers
+    def self.getTotalCultistPlayers
       @@totalCultistPlayers
     end
     
     def canYouGiveMeATreasure
-      !@visibleTreasures.isEmpty
+      !@visibleTreasures.empty?
     end
     
     def giveMeATreasure

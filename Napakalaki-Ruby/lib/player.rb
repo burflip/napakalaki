@@ -76,36 +76,40 @@ module NapakalakiGame
       @pendingBadConsequence = badConsequence.adjustToFitTreasureLists(@visible_treasures, @hidden_treasures)
     end
 
-    def canMakeTreasureVisible (treasure)
+    def canMakeTreasureVisible (t)
       can_make_visible = true
-      tk_hidden = treasure.type
+      has_one_hand = false
+      has_two_hand = false
+      has_two_handed = false
+      tk_hidden = t.type
 
-      if (tk_hidden == TreasureKind::BOTHHAND)
-        i=0
-        while i<visibleTreasures.size && can_make_visible
-          tk_visible = visibleTreasures[i].type
-          can_make_visible = (tk_visible != TreasureKind::BOTHHAND && tk_visible != TreasureKind::ONEHAND)
-          i = i + 1
+      @visibleTreasures.each do |treasure|
+        if treasure.type == tk_hidden && treasure.type != TreasureKind::ONEHAND
+          can_make_visible = false
+          break
+        elsif treasure.type == tk_hidden && treasure.type == TreasureKind::ONEHAND && has_two_hand
+          can_make_visible = false
+          break
         end
-      elsif (tk_hidden == TreasureKind::ONEHAND)
-        total_one_hand=0
-        i=0
-        while i<visibleTreasures.size && can_make_visible
-          tk_visible = visibleTreasures[i].type
-          if (tk_visible == TreasureKind::ONEHAND)
-            total_one_hand = total_one_hand +1
-          end
-          can_make_visible = (tk_visible != TreasureKind::BOTHHAND && total_one_hand<2)
-          i = i + 1
+        
+        if treasure.type == TreasureKind::ONEHAND && !has_one_hand
+          has_one_hand = true
+        elsif treasure.type == TreasureKind::ONEHAND && !has_two_hand
+          has_two_hand = true
+        elsif treasure.type == TreasureKind::BOTHHANDS
+          has_two_handed = true          
         end
-      else
-        i=0
-        while i<visibleTreasures.size && can_make_visible
-          tk_visible = visibleTreasures[i].type
-          can_make_visible = (tk_visible != tk_hidden)
-          i = i + 1
+        
+        if tk_hidden == TreasureKind::BOTHHANDS and has_one_hand
+          can_make_visible = false
+          break
+        elsif tk_hidden == TreasureKind::ONEHAND and (has_two_handed or has_two_hand)
+          can_make_visible = false
+          break
         end
+        
       end
+      
       can_make_visible;
     end
 
@@ -136,11 +140,16 @@ module NapakalakiGame
         applyPrize(m)
         if (@level >= @@MAXLEVEL) 
           @combatResult = CombatResult.WINGAME
+        else
+          @combatResult = CombatResult.WIN
         end 
       else 
-        @combatResult = CombatResult.WIN
-        self.applyBadConsequence(monster)
-        @combatResult = CombatResult.LOSE
+        if shouldConvert
+          @combatResult = CombatResult.LOSEANDCONVERT
+        else
+          applyBadConsequence(monster)
+          @combatResult = CombatResult.LOSE
+        end
       end
       @combatResult
     end
@@ -176,11 +185,11 @@ module NapakalakiGame
     end
     
     def validState
-      (b.isEmpty() and @hiddenTreasures.size() <= 4)
+      (@pendingBadConsequence.isEmpty and @hiddenTreasures.size <= 4)
     end
 
     def initTreasures
-      dealer=CardDealer.getInstance
+      dealer=CardDealer.instance
       dice=Dice.instance
       self.bringToLife
       treasure=dealer.nextTreasure 
@@ -220,8 +229,15 @@ module NapakalakiGame
     end
 
     def giveMeATreasure
-      random = Random.rand(@hiddenTreasures.size())
-      @hiddenTreasures.at(random)
+      ts = @hiddenTreasures.size
+      if(ts > 0)
+         random = Random.rand(@hiddenTreasures.size())
+         r = @hiddenTreasures.at(random)
+         @hiddenTreasueres.remove_at(random)
+      else
+        r = nil
+      end
+      r     
     end
 
     def canYouGiveMeATreasure
@@ -235,17 +251,16 @@ module NapakalakiGame
     def discardAllTreasures
       temp= Array.new(@visibleTreasures)
 
-      temp.size().times do
-        treasure = @visibleTreasures.at(i)
-        discardVisibleTreasure(treasure)
+      temp.each do |t|
+         discardVisibleTreasure(t)
       end
       
       temp = Array.new(@hiddenTreasures)
       
-      temp.size().times do
-        treasure = hiddenTreasures.at(i)
-        discardHiddenTreasure(treasure)
+      temp.each do |t|
+         discardHiddenTreasure(t)
       end
+      
     end
     
     def to_s()

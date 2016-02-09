@@ -31,6 +31,10 @@ module NapakalakiGame
       @prize.treasures
     end
     
+    def getCombatLevelAgainstCultistPlayer
+      @level + @levelChangeAgainstCultistPlayer
+    end
+    
     def self.newMonster(name,level,bc,prize)
       self.new(name,level,bc,prize,nil)
     end

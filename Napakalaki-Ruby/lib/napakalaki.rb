@@ -66,8 +66,16 @@ module NapakalakiGame
     end
     
     def developCombat()
-      @result=@currentPlayer.combat(@currentMonster)
       @dealer.giveMonsterBack(@currentMonster)
+      result=@currentPlayer.combat(@currentMonster)
+      if result == CombatResult::LOSEANDCONVERT
+        cultist = @dealer.nextCultist
+        p = CultistPlayer.new(@currentPlayer,cultist)
+        @players.insert(@players.index(@currentPlayer),p)
+        @players.pop(@players.index(@currentPlayer))
+        @currentPlayer = p        
+      end
+      result
     end
     
     def discardVisibleTreasures(treasures)

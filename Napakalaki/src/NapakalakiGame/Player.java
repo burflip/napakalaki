@@ -128,11 +128,7 @@ public class Player {
                 can_make = false;
             }
             
-            if(t.getType() == TreasureKind.ONEHAND && has_two_handed){
-                can_make = false;
-            }
-            
-            if(t.getType() == TreasureKind.ONEHAND && has_two_hand){
+            if(t.getType() == TreasureKind.ONEHAND && (has_two_handed || has_two_hand)){
                 can_make = false;
             }
         }
@@ -320,7 +316,4 @@ public class Player {
     public String toString() {
         return name + "{\n level=" + level + "\n dead=" + dead + "\n canISteal=" + canISteal + "\n enemy=" + enemy.getName() + "\n pendingBadConsequence=" + pendingBadConsequence + "\n hiddenTreasures=" + hiddenTreasures + "\n}";
     }
-       
-    
-    
 }
