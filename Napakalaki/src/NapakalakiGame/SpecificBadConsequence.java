@@ -86,4 +86,27 @@ public class SpecificBadConsequence extends BadConsequence{
         
         return this;
     }
+    @Override
+    public String toString()
+    {
+        String toRet = "";
+        
+        if (!specificVisibleTreasures.isEmpty())
+        {
+            toRet = "\nT.V. que pierdes: ";
+
+            for (int i = 0; i < specificVisibleTreasures.size(); i++)
+                toRet += specificVisibleTreasures.get(i) + " ";
+        }
+
+        if (!specificHiddenTreasures.isEmpty())
+        {
+            toRet = "\nT.O. que pierdes: ";
+
+            for (int i = 0; i < specificHiddenTreasures.size(); i++)
+                toRet += specificHiddenTreasures.get(i) + " ";
+        }
+        
+        return toRet;
+    }
 }

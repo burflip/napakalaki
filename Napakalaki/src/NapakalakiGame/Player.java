@@ -3,7 +3,7 @@ package NapakalakiGame;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.ThreadLocalRandom;
-
+import GUI.Dice;
 /**
  *
  * @author Valentin
@@ -45,7 +45,7 @@ public class Player {
         this.dead = false;
     }
     
-    protected int getCombatLevel(){
+    public int getCombatLevel(){
         
         int combatLevel = this.getLevels();
         for (Treasure t: this.visibleTreasures){
@@ -209,7 +209,7 @@ public class Player {
         }
     }
     
-    void discardVisibleTreasure(Treasure t){
+    public void discardVisibleTreasure(Treasure t){
         this.visibleTreasures.remove(t);
         if(this.pendingBadConsequence != null && !this.pendingBadConsequence.isEmpty()){
             this.pendingBadConsequence.substractVisibleTreasure(t);
@@ -217,7 +217,7 @@ public class Player {
         this.dieIfNoTreasures();
     }
     
-    void discardHiddenTreasure(Treasure t){
+    public void discardHiddenTreasure(Treasure t){
         this.hiddenTreasures.remove(t);
         if(this.pendingBadConsequence != null && !this.pendingBadConsequence.isEmpty()){
             this.pendingBadConsequence.substractHiddenTreasure(t);
@@ -225,7 +225,11 @@ public class Player {
         this.dieIfNoTreasures();
     }
     public boolean validState(){
-        return (this.pendingBadConsequence.isEmpty() && this.hiddenTreasures.size() <= 4);
+        if(this.pendingBadConsequence == null) {
+            return true;
+        } else {
+            return (this.pendingBadConsequence.isEmpty() && this.hiddenTreasures.size() <= 4);
+        }
     }
     
     public void initTreasures(){
@@ -314,6 +318,6 @@ public class Player {
 
     @Override
     public String toString() {
-        return name + "{\n level=" + level + "\n dead=" + dead + "\n canISteal=" + canISteal + "\n enemy=" + enemy.getName() + "\n pendingBadConsequence=" + pendingBadConsequence + "\n hiddenTreasures=" + hiddenTreasures + "\n}";
+        return name;
     }
 }

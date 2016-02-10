@@ -29,10 +29,10 @@ public class CardDealer {
     }
 
     private void initTreasureCardDeck() {
-        Treasure tesoro = new Treasure("¡Sí mi amo!", 4, TreasureKind.HELMET);
+        Treasure tesoro = new Treasure("¡Si mi amo!", 4, TreasureKind.HELMET);
         unusedTreasures.add(tesoro);
 
-        tesoro = new Treasure("Botas de investigación", 3, TreasureKind.SHOES);
+        tesoro = new Treasure("Botas de investigacion", 3, TreasureKind.SHOES);
         unusedTreasures.add(tesoro);
 
         tesoro = new Treasure("Capucha de Cthulhu", 3, TreasureKind.HELMET);
@@ -41,7 +41,7 @@ public class CardDealer {
         tesoro = new Treasure("A prueba de balas", 2, TreasureKind.ARMOR);
         unusedTreasures.add(tesoro);
 
-        tesoro = new Treasure("Botas de lluvia ácida", 1, TreasureKind.BOTHHANDS);
+        tesoro = new Treasure("Botas de lluvia acida", 1, TreasureKind.BOTHHANDS);
         unusedTreasures.add(tesoro);
 
         tesoro = new Treasure("Casco minero", 2, TreasureKind.HELMET);
@@ -53,16 +53,16 @@ public class CardDealer {
         tesoro = new Treasure("Camiseta de la UGR", 1, TreasureKind.ARMOR);
         unusedTreasures.add(tesoro);
 
-        tesoro = new Treasure("Clavo de raíl ferroviario", 3, TreasureKind.ONEHAND);
+        tesoro = new Treasure("Clavo de rail ferroviario", 3, TreasureKind.ONEHAND);
         unusedTreasures.add(tesoro);
 
         tesoro = new Treasure("Cuchillo de sushi arcano", 2, TreasureKind.ONEHAND);
         unusedTreasures.add(tesoro);
 
-        tesoro = new Treasure("Fez alópodo", 3, TreasureKind.HELMET);
+        tesoro = new Treasure("Fez alopodo", 3, TreasureKind.HELMET);
         unusedTreasures.add(tesoro);
 
-        tesoro = new Treasure("Hacha prehistórica", 2, TreasureKind.ONEHAND);
+        tesoro = new Treasure("Hacha prehistorica", 2, TreasureKind.ONEHAND);
         unusedTreasures.add(tesoro);
 
         tesoro = new Treasure("El aparato del Pr. Tesla", 4, TreasureKind.ARMOR);
@@ -77,25 +77,25 @@ public class CardDealer {
         tesoro = new Treasure("Escopeta de 3 cañones", 4, TreasureKind.BOTHHANDS);
         unusedTreasures.add(tesoro);
 
-        tesoro = new Treasure("Garabato místico", 2, TreasureKind.ONEHAND);
+        tesoro = new Treasure("Garabato mistico", 2, TreasureKind.ONEHAND);
         unusedTreasures.add(tesoro);
 
-        tesoro = new Treasure("La rebeca metálica", 2, TreasureKind.ARMOR);
+        tesoro = new Treasure("La rebeca metalica", 2, TreasureKind.ARMOR);
         unusedTreasures.add(tesoro);
 
         tesoro = new Treasure("Lanzallamas", 4, TreasureKind.BOTHHANDS);
         unusedTreasures.add(tesoro);
 
-        tesoro = new Treasure("Necrocomicón", 1, TreasureKind.ONEHAND);
+        tesoro = new Treasure("Necrocomicon", 1, TreasureKind.ONEHAND);
         unusedTreasures.add(tesoro);
 
-        tesoro = new Treasure("Necronomicón", 5, TreasureKind.BOTHHANDS);
+        tesoro = new Treasure("Necronomicon", 5, TreasureKind.BOTHHANDS);
         unusedTreasures.add(tesoro);
 
         tesoro = new Treasure("Linterna a 2 manos", 3, TreasureKind.BOTHHANDS);
         unusedTreasures.add(tesoro);
 
-        tesoro = new Treasure("Necrognomicón", 2, TreasureKind.ONEHAND);
+        tesoro = new Treasure("Necrognomicon", 2, TreasureKind.ONEHAND);
         unusedTreasures.add(tesoro);
 
         tesoro = new Treasure("Necrotelecom", 2, TreasureKind.HELMET);
@@ -104,7 +104,7 @@ public class CardDealer {
         tesoro = new Treasure("Mazo de los antiguos", 3, TreasureKind.ONEHAND);
         unusedTreasures.add(tesoro);
 
-        tesoro = new Treasure("Necroplayboycón", 3, TreasureKind.ONEHAND);
+        tesoro = new Treasure("Necroplayboycon", 3, TreasureKind.ONEHAND);
         unusedTreasures.add(tesoro);
 
         tesoro = new Treasure("Porra prenatural", 2, TreasureKind.ONEHAND);
@@ -116,7 +116,7 @@ public class CardDealer {
         tesoro = new Treasure("Varita de atizamiento", 3, TreasureKind.ONEHAND);
         unusedTreasures.add(tesoro);
 
-        tesoro = new Treasure("Tentáculo de pega", 2, TreasureKind.HELMET);
+        tesoro = new Treasure("Tentaculo de pega", 2, TreasureKind.HELMET);
         unusedTreasures.add(tesoro);
 
         tesoro = new Treasure("Zapato deja-amigos", 1, TreasureKind.SHOES);
@@ -144,10 +144,10 @@ public class CardDealer {
         prize = new Prize(4, 1);
         unusedMonsters.add(new Monster("Angeles de la noche ibicenca", 14, badConsequence, prize));
 
-        //El gorrón en el umbral
+        //El gorron en el umbral
         badConsequence = new NumericBadConsequence("Pierdes todos tus tesoros visibles", 0, BadConsequence.MAXTREASURES, 0);
         prize = new Prize(3, 1);
-        unusedMonsters.add(new Monster("El górron en el umbral", 10, badConsequence, prize));
+        unusedMonsters.add(new Monster("El gorron en el umbral", 10, badConsequence, prize));
 
         //H.P. Munchcraft
         badConsequence = new SpecificBadConsequence("Pierdes la armadura visible", 0, new ArrayList(Arrays.asList(TreasureKind.ARMOR)), new ArrayList(Arrays.asList()));
@@ -184,10 +184,10 @@ public class CardDealer {
         prize = new Prize(2, 1);
         unusedMonsters.add(new Monster("Dameargo", 1, badConsequence, prize));
 
-        //Pollipólipo volante
+        //Pollipolipo volante
         badConsequence = new NumericBadConsequence("Da mucho asquito. Pierdes 3 niveles", 3, 0, 0);
         prize = new Prize(1, 1);
-        unusedMonsters.add(new Monster("Pollipólipo volante", 3, badConsequence, prize));
+        unusedMonsters.add(new Monster("Pollipolipo volante", 3, badConsequence, prize));
 
         //Yskhtihyssg-Goth
         badConsequence = new DeathBadConsequence("No le hace gracia que pronuncien mal su nombre. Estas muerto", true);
@@ -204,20 +204,20 @@ public class CardDealer {
         prize = new Prize(2, 1);
         unusedMonsters.add(new Monster("Roboggoth", 8, badConsequence, prize));
 
-        //El espía
+        //El espia
         badConsequence = new SpecificBadConsequence("Te asusta en la noche. Pierdes un casco visible", 0, new ArrayList(Arrays.asList(TreasureKind.HELMET)), new ArrayList(Arrays.asList()));
         prize = new Prize(1, 1);
-        unusedMonsters.add(new Monster("El espía", 5, badConsequence, prize));
+        unusedMonsters.add(new Monster("El espia", 5, badConsequence, prize));
 
         //El lenguas
         badConsequence = new NumericBadConsequence("Menudo susto te llevas. Pierdes 2 niveles y 5 tesoros visibles", 2, 5, 0);
         prize = new Prize(1, 1);
         unusedMonsters.add(new Monster("El lenguas", 20, badConsequence, prize));
 
-        //Bicéfalo
+        //Bicefalo
         badConsequence = new SpecificBadConsequence("Te faltan manos para tanta cabeza. Pierdes 3 niveles y tus tesoros visibles de las manos", 3, new ArrayList(Arrays.asList(TreasureKind.ONEHAND, TreasureKind.ONEHAND, TreasureKind.BOTHHANDS)), new ArrayList(Arrays.asList()));
         prize = new Prize(1, 1);
-        unusedMonsters.add(new Monster("Bicéfalo", 20, badConsequence, prize));
+        unusedMonsters.add(new Monster("Bicefalo", 20, badConsequence, prize));
         
         /**
          * Monstruos con sectarios
@@ -234,14 +234,14 @@ public class CardDealer {
         unusedMonsters.add(new Monster("Testigos Oculares", 6, badConsequence, prize,2));
         
         //El gran cthulhu
-        badConsequence = new DeathBadConsequence("Hoy no es tu día de suerte. Mueres", true);
+        badConsequence = new DeathBadConsequence("Hoy no es tu dia de suerte. Mueres", true);
         prize = new Prize(2, 5);
         unusedMonsters.add(new Monster("El gran cthulhu", 20, badConsequence, prize, 4));
         
-        //Serpiente Político
+        //Serpiente Politico
         badConsequence = new NumericBadConsequence("Tu gobierno te recorta 2 niveles", 2, 0, 0);
         prize = new Prize(2, 1);
-        unusedMonsters.add(new Monster("Serpiente Político", 8, badConsequence, prize, -2));
+        unusedMonsters.add(new Monster("Serpiente Politico", 8, badConsequence, prize, -2));
         
         //Felpuggoth
         badConsequence = new SpecificBadConsequence("Pierdes tu casco y tu armadura visible. Pierdes tus manos ocultas.", 0, new ArrayList(Arrays.asList(TreasureKind.HELMET, TreasureKind.ARMOR)), new ArrayList(Arrays.asList(TreasureKind.ONEHAND,TreasureKind.ONEHAND,TreasureKind.BOTHHANDS)));
@@ -272,7 +272,7 @@ public class CardDealer {
 
     private void shuffleTreasures() {
         /* 
-        Si no vamos a usar concurrencias, o Java < 1.7, se puede usar también Random así:
+        Si no vamos a usar concurrencias, o Java < 1.7, se puede usar tambien Random asi:
         long seed = System.nanoTime();
         Collections.shuffle(this.unusedTreasures, new Random(seed));
         */

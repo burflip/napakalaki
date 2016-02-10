@@ -17,7 +17,7 @@ public class CultistPlayer extends Player {
         CultistPlayer.totalCultistPlayers++;
     }
     
-    protected int getCombatLevel() {
+    public int getCombatLevel() {
         float level = super.getCombatLevel();
         level += level*0.20;
         level += this.myCultistCard.getGainedLevels()*CultistPlayer.totalCultistPlayers;

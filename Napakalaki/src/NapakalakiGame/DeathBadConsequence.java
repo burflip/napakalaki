@@ -15,4 +15,11 @@ public class DeathBadConsequence extends NumericBadConsequence{
         this.death = death;
     }
    
+    @Override
+    public String toString()
+    {
+        String toRet = "Estás muerto\nDescarta todos tus tesoros";
+        
+        return toRet;
+    }
 }

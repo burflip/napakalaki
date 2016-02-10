@@ -61,4 +61,13 @@ public class NumericBadConsequence extends BadConsequence {
     public int getnHiddenTreasures() {
         return this.nHiddenTreasures;
     }
+    
+    @Override
+    public String toString()
+    {   
+        String toRet = "Tesoros visibles que pierdes: " + nVisibleTreasures 
+                + "\nTesoros ocultos que pierdes: " + nHiddenTreasures;
+        
+        return toRet;
+    }
 }
