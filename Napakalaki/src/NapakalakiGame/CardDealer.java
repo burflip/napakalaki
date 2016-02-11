@@ -107,7 +107,7 @@ public class CardDealer {
         tesoro = new Treasure("Necroplayboycon", 3, TreasureKind.ONEHAND);
         unusedTreasures.add(tesoro);
 
-        tesoro = new Treasure("Porra prenatural", 2, TreasureKind.ONEHAND);
+        tesoro = new Treasure("Porra preternatural", 2, TreasureKind.ONEHAND);
         unusedTreasures.add(tesoro);
 
         tesoro = new Treasure("Shogulador", 1, TreasureKind.BOTHHANDS);

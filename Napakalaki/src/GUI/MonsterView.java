@@ -18,9 +18,6 @@ public class MonsterView extends javax.swing.JPanel {
     public void HideMonster ()
     {
         mainPanel.setVisible(false);
-        prizeView.setVisible(false);
-        levelTitleLabel.setVisible(false);
-        levelLabel.setVisible(false);
         cardLabel.setVisible(false);
         repaint();
     }
@@ -28,9 +25,6 @@ public class MonsterView extends javax.swing.JPanel {
     public void ShowMonster ()
     {
         mainPanel.setVisible(true);
-        prizeView.setVisible(true);
-        levelTitleLabel.setVisible(true);
-        levelLabel.setVisible(true);
         cardLabel.setVisible(true);
         
         repaint();
@@ -39,20 +33,7 @@ public class MonsterView extends javax.swing.JPanel {
     public void setMonster(Monster m)
     {
         monsterModel = m;
-        
-        nameLabel.setText(monsterModel.getName());
-        
-        String levelText = Integer.toString(monsterModel.getCombatLevel());
-        int levelChange = monsterModel.getCombatLevelAgainstCultistPlayer();
-        
-        if (levelChange != monsterModel.getCombatLevel())
-        {
-            levelText += "|" + levelChange;
-        }
-        
-        levelLabel.setText(levelText);
-        prizeView.setPrize(monsterModel.getPrize());
-        badConsequenceView.setBadConsequence(monsterModel.getBadConsequence());
+              
         cardLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/monsters/"+monsterModel.getName()+".jpg")));
         HideMonster();
         
@@ -76,86 +57,38 @@ public class MonsterView extends javax.swing.JPanel {
     private void initComponents() {
 
         mainPanel = new javax.swing.JPanel();
-        nameLabel = new javax.swing.JLabel();
         cardLabel = new javax.swing.JLabel();
-        levelTitleLabel = new javax.swing.JLabel();
-        levelLabel = new javax.swing.JLabel();
-        prizeView = new GUI.PrizeView();
-        badConsequenceView = new GUI.BadConsequenceView();
 
         mainPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        nameLabel.setFont(new java.awt.Font("Ubuntu", 1, 10)); // NOI18N
-        nameLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        nameLabel.setText("Nombre del monstruo");
-
-        cardLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/monsters/3 Byakhees de bonanza.png"))); // NOI18N
-
-        levelTitleLabel.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        levelTitleLabel.setText("NIVEL");
-
-        levelLabel.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
-        levelLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        levelLabel.setText("0");
+        cardLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/monsters/3 Byakhees de bonanza.jpg"))); // NOI18N
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(nameLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(badConsequenceView, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-            .addGroup(mainPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cardLabel)
-                    .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addComponent(prizeView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31)
-                        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(levelTitleLabel)
-                            .addGroup(mainPanelLayout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addComponent(levelLabel)))))
-                .addContainerGap(17, Short.MAX_VALUE))
+            .addComponent(cardLabel)
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(mainPanelLayout.createSequentialGroup()
-                .addComponent(nameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cardLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addComponent(levelTitleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(levelLabel))
-                    .addComponent(prizeView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(badConsequenceView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43))
+            .addComponent(cardLabel)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private GUI.BadConsequenceView badConsequenceView;
     private javax.swing.JLabel cardLabel;
-    private javax.swing.JLabel levelLabel;
-    private javax.swing.JLabel levelTitleLabel;
     private javax.swing.JPanel mainPanel;
-    private javax.swing.JLabel nameLabel;
-    private GUI.PrizeView prizeView;
     // End of variables declaration//GEN-END:variables
 }

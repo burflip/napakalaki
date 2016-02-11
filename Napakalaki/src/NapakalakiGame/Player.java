@@ -35,6 +35,7 @@ public class Player {
         this.pendingBadConsequence = null;
         this.canISteal = p.canISteal();
         this.level = p.getLevels();
+        this.enemy = p.getEnemy();
     }
 
     public String getName() {

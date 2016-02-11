@@ -19,27 +19,8 @@ public class TreasureView extends javax.swing.JPanel {
     
     void setTreasure(Treasure t) {
         treasureModel = t;
-        bonusLabel.setText(String.valueOf(t.getBonus()));
-        nombreTesoroLabel.setText(treasureModel.getName());
-        
-        switch (treasureModel.getType())
-        {
-            case ONEHAND:
-                tipoTesoroLabel.setText("Una mano");
-                break;
-            case BOTHHANDS:
-                tipoTesoroLabel.setText("Dos manos");
-                break;
-            case SHOES:
-                tipoTesoroLabel.setText("Zapatos");
-                break;
-            case HELMET:
-                tipoTesoroLabel.setText("Casco");
-                break;
-            case ARMOR:
-                tipoTesoroLabel.setText("Armadura");
-                break;
-        }
+        System.out.println("/treasures/"+treasureModel.getName()+".jpg");
+        cardLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/treasures/"+treasureModel.getName()+".jpg")));
         repaint();        
     }
     
@@ -75,9 +56,7 @@ public class TreasureView extends javax.swing.JPanel {
     private void initComponents() {
 
         backgroundPanel = new javax.swing.JPanel();
-        nombreTesoroLabel = new javax.swing.JLabel();
-        bonusLabel = new javax.swing.JLabel();
-        tipoTesoroLabel = new javax.swing.JLabel();
+        cardLabel = new javax.swing.JLabel();
 
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -87,18 +66,7 @@ public class TreasureView extends javax.swing.JPanel {
 
         backgroundPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        nombreTesoroLabel.setText("Nombretesoro");
-        nombreTesoroLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        bonusLabel.setBackground(new java.awt.Color(132, 132, 132));
-        bonusLabel.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        bonusLabel.setForeground(new java.awt.Color(46, 46, 46));
-        bonusLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        bonusLabel.setText("BONUS");
-        bonusLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        tipoTesoroLabel.setText("Tipo de tesoro");
-        tipoTesoroLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        cardLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/treasures/A prueba de babas.jpg"))); // NOI18N
 
         javax.swing.GroupLayout backgroundPanelLayout = new javax.swing.GroupLayout(backgroundPanel);
         backgroundPanel.setLayout(backgroundPanelLayout);
@@ -106,25 +74,14 @@ public class TreasureView extends javax.swing.JPanel {
             backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(backgroundPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(bonusLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backgroundPanelLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(tipoTesoroLabel))
-                    .addGroup(backgroundPanelLayout.createSequentialGroup()
-                        .addComponent(nombreTesoroLabel)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addComponent(cardLabel)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         backgroundPanelLayout.setVerticalGroup(
             backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(backgroundPanelLayout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addComponent(nombreTesoroLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(bonusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tipoTesoroLabel)
+                .addContainerGap()
+                .addComponent(cardLabel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -132,7 +89,7 @@ public class TreasureView extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(backgroundPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(backgroundPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,8 +119,6 @@ public class TreasureView extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel backgroundPanel;
-    private javax.swing.JLabel bonusLabel;
-    private javax.swing.JLabel nombreTesoroLabel;
-    private javax.swing.JLabel tipoTesoroLabel;
+    private javax.swing.JLabel cardLabel;
     // End of variables declaration//GEN-END:variables
 }
